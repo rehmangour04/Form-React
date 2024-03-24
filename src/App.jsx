@@ -9,17 +9,20 @@ function App() {
   const [fullName, setFullName] = useState("");
   const [errorFirstName, setErrorFirstName] = useState("");
   const [errorLastName, setErrorLastName] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission status
 
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
     setFirstName(value);
     setErrorFirstName(value.trim() === "" ? "Please fill out this field." : "");
+    setFormSubmitted(false); // Reset form submission status on input change
   };
 
   const handleLastNameChange = (event) => {
     const value = event.target.value;
     setLastName(value);
     setErrorLastName(value.trim() === "" ? "Please fill out this field." : "");
+    setFormSubmitted(false); // Reset form submission status on input change
   };
 
   const handleSubmit = (event) => {
@@ -31,10 +34,12 @@ function App() {
       setErrorLastName(
         lastName.trim() === "" ? "Please fill out this field." : ""
       );
+      setFormSubmitted(false); // Reset form submission status if form is invalid
     } else {
       setFullName(`${firstName} ${lastName}`);
       setErrorFirstName("");
       setErrorLastName("");
+      setFormSubmitted(true); // Set form submission status to true
     }
   };
 
@@ -69,12 +74,13 @@ function App() {
       <button type="submit" className="submit-btn">
         Submit
       </button>
-      {fullName && (
-        <div className="full-name-container">
-          <label className="full-name-label">Full Name:</label>
-          <span className="full-name">{fullName}</span>
-        </div>
-      )}
+      {formSubmitted &&
+        fullName && ( // Check if form submitted and fullName is not empty
+          <div className="full-name-container">
+            <label className="full-name-label">Full Name:</label>
+            <span className="full-name">{fullName}</span>
+          </div>
+        )}
     </form>
   );
 }
