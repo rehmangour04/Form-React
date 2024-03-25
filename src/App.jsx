@@ -9,7 +9,7 @@ function App() {
   const [fullName, setFullName] = useState("");
   const [errorFirstName, setErrorFirstName] = useState("");
   const [errorLastName, setErrorLastName] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission status
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
@@ -27,18 +27,16 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (firstName.trim() === "" || lastName.trim() === "") {
+    if (firstName.trim() !== "" && lastName.trim() !== "") {
+      setFullName(`${firstName} ${lastName}`);
+      setFormSubmitted(true);
+    } else {
       setErrorFirstName(
         firstName.trim() === "" ? "Please fill out this field." : ""
       );
       setErrorLastName(
         lastName.trim() === "" ? "Please fill out this field." : ""
       );
-    } else {
-      setFullName(`${firstName} ${lastName}`);
-      setErrorFirstName("");
-      setErrorLastName("");
-      setFormSubmitted(true);
     }
   };
 
@@ -73,7 +71,7 @@ function App() {
       <button
         type="submit"
         className="submit-btn"
-        disabled={!firstName || !lastName}
+        disabled={formSubmitted} // Disable only if form is already submitted
       >
         Submit
       </button>
