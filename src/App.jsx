@@ -15,14 +15,14 @@ function App() {
     const value = event.target.value;
     setFirstName(value);
     setErrorFirstName(value.trim() === "" ? "Please fill out this field." : "");
-    setFormSubmitted(false); // Reset form submission status on input change
+    setFormSubmitted(false);
   };
 
   const handleLastNameChange = (event) => {
     const value = event.target.value;
     setLastName(value);
     setErrorLastName(value.trim() === "" ? "Please fill out this field." : "");
-    setFormSubmitted(false); // Reset form submission status on input change
+    setFormSubmitted(false);
   };
 
   const handleSubmit = (event) => {
@@ -42,6 +42,7 @@ function App() {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <h1>Full Name Display</h1>
       <div className="form-group">
         <label htmlFor="firstName">First Name:</label>
         <input
@@ -68,17 +69,16 @@ function App() {
           <span className="error-message">{errorLastName}</span>
         )}
       </div>
-      <button
-        type="submit"
-        className="submit-btn"
-        disabled={formSubmitted} // Disable only if form is already submitted
-      >
+      <button type="submit" className="submit-btn" disabled={formSubmitted}>
         Submit
       </button>
-      <div className="full-name-container">
-        <label className="full-name-label">Full Name Display:</label>
-        <span className="full-name">{fullName}</span>
-      </div>
+      {formSubmitted ? (
+        <div className="full-name-container">
+          <label className="full-name-label">Full Name: {fullName}</label>
+        </div>
+      ) : (
+        ""
+      )}
     </form>
   );
 }
