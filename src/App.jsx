@@ -72,12 +72,10 @@ function App() {
       <button type="submit" className="submit-btn" disabled={formSubmitted}>
         Submit
       </button>
-      {formSubmitted ? (
+      {formSubmitted && (
         <div className="full-name-container">
           <label className="full-name-label">Full Name: {fullName}</label>
         </div>
-      ) : (
-        ""
       )}
     </form>
   );
